@@ -1,43 +1,94 @@
-import React from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { logout } from '../../app/slices/authSlice';
+import React from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../app/slices/authSlice";
 import {
-  LayoutDashboard, Package, Warehouse, Truck, ShoppingCart,
-  ClipboardList, Bot, BarChart3, Users, ChevronLeft, ChevronRight,
-  Layers, LogOut
-} from 'lucide-react';
+  LayoutDashboard,
+  Package,
+  Warehouse,
+  Truck,
+  ShoppingCart,
+  ClipboardList,
+  Bot,
+  BarChart3,
+  Users,
+  ChevronLeft,
+  ChevronRight,
+  Layers,
+  LogOut,
+} from "lucide-react";
 
 const navGroups = [
   {
-    title: 'OPERATIONS',
+    title: "OPERATIONS",
     items: [
-      { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard', roles: ['admin', 'manager', 'staff'] },
-      { to: '/products', icon: Package, label: 'Products', roles: ['admin', 'manager', 'staff'] },
-      { to: '/warehouses', icon: Warehouse, label: 'Warehouses', roles: ['admin', 'manager', 'staff'] },
-      { to: '/orders', icon: ShoppingCart, label: 'Orders', roles: ['admin', 'manager', 'staff'] },
-    ]
+      {
+        to: "/dashboard",
+        icon: LayoutDashboard,
+        label: "Dashboard",
+        roles: ["admin", "manager", "staff"],
+      },
+      {
+        to: "/products",
+        icon: Package,
+        label: "Products",
+        roles: ["admin", "manager", "staff"],
+      },
+      {
+        to: "/warehouses",
+        icon: Warehouse,
+        label: "Warehouses",
+        roles: ["admin", "manager", "staff"],
+      },
+      {
+        to: "/orders",
+        icon: ShoppingCart,
+        label: "Orders",
+        roles: ["admin", "manager", "staff"],
+      },
+    ],
   },
   {
-    title: 'SUPPLY CHAIN',
+    title: "SUPPLY CHAIN",
     items: [
-      { to: '/suppliers', icon: Truck, label: 'Suppliers', roles: ['admin', 'manager'] },
-      { to: '/audit-log', icon: ClipboardList, label: 'Audit Log', roles: ['admin', 'manager'] },
-    ]
+      {
+        to: "/suppliers",
+        icon: Truck,
+        label: "Suppliers",
+        roles: ["admin", "manager"],
+      },
+      {
+        to: "/audit-log",
+        icon: ClipboardList,
+        label: "Audit Log",
+        roles: ["admin", "manager"],
+      },
+    ],
   },
   {
-    title: 'ANALYTICS & PLANNING',
+    title: "ANALYTICS & PLANNING",
     items: [
-      { to: '/ai-assistant', icon: Bot, label: 'Demand Planning', roles: ['admin', 'manager', 'staff'], badge: 'AI' },
-      { to: '/reports', icon: BarChart3, label: 'Reports', roles: ['admin', 'manager'] },
-    ]
+      {
+        to: "/ai-assistant",
+        icon: Bot,
+        label: "Demand Planning",
+        roles: ["admin", "manager", "staff"],
+        badge: "AI",
+      },
+      {
+        to: "/reports",
+        icon: BarChart3,
+        label: "Reports",
+        roles: ["admin", "manager"],
+      },
+    ],
   },
   {
-    title: 'ADMINISTRATION',
+    title: "ADMINISTRATION",
     items: [
-      { to: '/users', icon: Users, label: 'User Roles', roles: ['admin'] },
-    ]
-  }
+      { to: "/users", icon: Users, label: "User Roles", roles: ["admin"] },
+    ],
+  },
 ];
 
 const Sidebar = ({ collapsed, onToggle }) => {
@@ -47,17 +98,19 @@ const Sidebar = ({ collapsed, onToggle }) => {
 
   const handleLogout = () => {
     dispatch(logout());
-    navigate('/login');
+    navigate("/login");
   };
 
   return (
     <aside
       className={`fixed left-0 top-0 h-full z-40 flex flex-col transition-[width] duration-200 ease-out select-none bg-[#0D1322] border-r border-[#1E293B] ${
-        collapsed ? 'w-16 overflow-visible' : 'w-[13rem] overflow-hidden'
+        collapsed ? "w-16 overflow-visible" : "w-[13rem] overflow-hidden"
       }`}
     >
       {/* Header / Brand Logo */}
-      <div className={`flex items-center pt-3 pb-2.5 px-3 border-b border-[#1E293B] ${collapsed ? 'justify-center' : 'justify-between'}`}>
+      <div
+        className={`flex items-center pt-3 pb-2.5 px-3 border-b border-[#1E293B] ${collapsed ? "justify-center" : "justify-between"}`}
+      >
         <div className="flex items-center gap-2 overflow-hidden">
           <div className="w-6 h-6 rounded-md bg-emerald-600 flex items-center justify-center flex-shrink-0 text-white font-bold shadow-sm">
             <Layers className="w-3.5 h-3.5" />
@@ -67,7 +120,9 @@ const Sidebar = ({ collapsed, onToggle }) => {
               <span className="text-xs font-semibold tracking-tight text-white block leading-tight">
                 RetailPulse
               </span>
-              <p className="text-[9px] text-gray-400 font-medium leading-tight mt-0.5">Inventory & Hubs</p>
+              <p className="text-[9px] text-gray-400 font-medium leading-tight mt-0.5">
+                Inventory & Hubs
+              </p>
             </div>
           )}
         </div>
@@ -84,13 +139,20 @@ const Sidebar = ({ collapsed, onToggle }) => {
       </div>
 
       {/* Nav Groups */}
-      <div className={`flex-1 py-3 px-2 ${collapsed ? 'overflow-visible space-y-4' : 'overflow-y-auto space-y-3'}`}>
+      <div
+        className={`flex-1 py-3 px-2 ${collapsed ? "overflow-visible space-y-4" : "overflow-y-auto space-y-3"}`}
+      >
         {navGroups.map((group, gIdx) => {
-          const visibleItems = group.items.filter(item => item.roles.includes(user?.role));
+          const visibleItems = group.items.filter((item) =>
+            item.roles.includes(user?.role),
+          );
           if (visibleItems.length === 0) return null;
 
           return (
-            <div key={gIdx} className={collapsed ? 'space-y-1.5' : 'space-y-0.5'}>
+            <div
+              key={gIdx}
+              className={collapsed ? "space-y-1.5" : "space-y-0.5"}
+            >
               {!collapsed && (
                 <div className="px-2 pb-1 text-[8.5px] font-semibold text-gray-500/50 uppercase tracking-widest select-none">
                   {group.title}
@@ -101,7 +163,7 @@ const Sidebar = ({ collapsed, onToggle }) => {
                   key={item.to}
                   to={item.to}
                   className={({ isActive }) =>
-                    `sidebar-link group ${isActive ? 'active' : ''} ${collapsed ? 'justify-center !px-1.5 !border-l-0 !rounded-md' : ''}`
+                    `sidebar-link group ${isActive ? "active" : ""} ${collapsed ? "justify-center !px-1.5 !border-l-0 !rounded-md" : ""}`
                   }
                 >
                   <item.icon className="w-3.5 h-3.5 flex-shrink-0" />
@@ -152,16 +214,18 @@ const Sidebar = ({ collapsed, onToggle }) => {
       <div className="p-2 border-t border-[#1E293B]/70 bg-[#0B1020]">
         <div
           className={`flex items-center gap-2 px-1.5 py-1 rounded-md hover:bg-[#131C33]/50 transition-colors cursor-default ${
-            collapsed ? 'justify-center' : ''
+            collapsed ? "justify-center" : ""
           }`}
           title={user?.email ? `${user?.name} (${user?.email})` : user?.name}
         >
           <div className="w-6 h-6 rounded-md bg-[#1E293B] border border-[#334155] flex items-center justify-center text-[11px] font-semibold text-gray-200 flex-shrink-0">
-            {user?.name?.charAt(0)?.toUpperCase() || 'U'}
+            {user?.name?.charAt(0)?.toUpperCase() || "U"}
           </div>
           {!collapsed && (
             <div className="overflow-hidden min-w-0 flex-1 flex items-center justify-between gap-1.5">
-              <p className="text-[11.5px] font-medium text-gray-200 truncate">{user?.name}</p>
+              <p className="text-[11.5px] font-medium text-gray-200 truncate">
+                {user?.name}
+              </p>
               <span className="text-[9px] font-medium capitalize px-1.5 py-0.2 rounded bg-[#131C33] text-emerald-400/90 border border-[#1E293B] flex-shrink-0">
                 {user?.role}
               </span>

@@ -1,21 +1,34 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { Bell, Search, LogOut, User, Shield, ShieldCheck, AlertTriangle, Info, CheckCircle2 } from 'lucide-react';
-import { logout } from '../../app/slices/authSlice';
-import { fetchNotifications } from '../../app/slices/analyticsSlice';
-import PermissionsModal from '../common/PermissionsModal';
+import React, { useState, useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useLocation } from "react-router-dom";
+import {
+  Bell,
+  Search,
+  LogOut,
+  User,
+  Shield,
+  ShieldCheck,
+  AlertTriangle,
+  Info,
+  CheckCircle2,
+} from "lucide-react";
+import { logout } from "../app/slices/authSlice";
+import { fetchNotifications } from "../app/slices/analyticsSlice";
+import PermissionsModal from "../common/PermissionsModal";
 
 const pageMeta = {
-  '/dashboard': { section: 'Operations', title: 'Operational Overview' },
-  '/products': { section: 'Inventory', title: 'Item Master & Stock Ledger' },
-  '/warehouses': { section: 'Logistics', title: 'Warehouse Facilities' },
-  '/suppliers': { section: 'Procurement', title: 'Supplier Directory' },
-  '/orders': { section: 'Operations', title: 'Purchase & Sales Orders' },
-  '/audit-log': { section: 'Audit', title: 'Stock Movement Ledger' },
-  '/ai-assistant': { section: 'Planning', title: 'Demand Forecasting & Reorders' },
-  '/reports': { section: 'Reporting', title: 'Valuation & Audit Reports' },
-  '/users': { section: 'Administration', title: 'User Access Control' },
+  "/dashboard": { section: "Operations", title: "Operational Overview" },
+  "/products": { section: "Inventory", title: "Item Master & Stock Ledger" },
+  "/warehouses": { section: "Logistics", title: "Warehouse Facilities" },
+  "/suppliers": { section: "Procurement", title: "Supplier Directory" },
+  "/orders": { section: "Operations", title: "Purchase & Sales Orders" },
+  "/audit-log": { section: "Audit", title: "Stock Movement Ledger" },
+  "/ai-assistant": {
+    section: "Planning",
+    title: "Demand Forecasting & Reorders",
+  },
+  "/reports": { section: "Reporting", title: "Valuation & Audit Reports" },
+  "/users": { section: "Administration", title: "User Access Control" },
 };
 
 const Navbar = () => {
@@ -29,7 +42,10 @@ const Navbar = () => {
   const [showPermissions, setShowPermissions] = useState(false);
   const notifRef = useRef(null);
 
-  const currentMeta = pageMeta[location.pathname] || { section: 'System', title: 'RetailPulse' };
+  const currentMeta = pageMeta[location.pathname] || {
+    section: "System",
+    title: "RetailPulse",
+  };
 
   useEffect(() => {
     dispatch(fetchNotifications());
@@ -39,20 +55,23 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleClick = (e) => {
-      if (notifRef.current && !notifRef.current.contains(e.target)) setShowNotif(false);
+      if (notifRef.current && !notifRef.current.contains(e.target))
+        setShowNotif(false);
     };
-    document.addEventListener('mousedown', handleClick);
-    return () => document.removeEventListener('mousedown', handleClick);
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
   const handleLogout = () => {
     dispatch(logout());
-    navigate('/login');
+    navigate("/login");
   };
 
   const getNotifIcon = (type) => {
-    if (type === 'out_of_stock') return <AlertTriangle className="w-3.5 h-3.5 text-rose-400" />;
-    if (type === 'low_stock') return <AlertTriangle className="w-3.5 h-3.5 text-amber-400" />;
+    if (type === "out_of_stock")
+      return <AlertTriangle className="w-3.5 h-3.5 text-rose-400" />;
+    if (type === "low_stock")
+      return <AlertTriangle className="w-3.5 h-3.5 text-amber-400" />;
     return <Info className="w-3.5 h-3.5 text-blue-400" />;
   };
 
@@ -60,9 +79,13 @@ const Navbar = () => {
     <header className="h-[49.5px] flex items-center justify-between px-5 bg-[#0D1322] border-b border-[#1E293B] select-none">
       {/* Breadcrumb / Title */}
       <div className="flex items-center gap-2 text-[12.5px]">
-        <span className="text-gray-400 font-medium text-xs">{currentMeta.section}</span>
+        <span className="text-gray-400 font-medium text-xs">
+          {currentMeta.section}
+        </span>
         <span className="text-gray-600">/</span>
-        <h1 className="font-semibold text-gray-200 tracking-tight">{currentMeta.title}</h1>
+        <h1 className="font-semibold text-gray-200 tracking-tight">
+          {currentMeta.title}
+        </h1>
       </div>
 
       {/* Global Quick Search (Linear / Stripe style) */}
@@ -113,7 +136,7 @@ const Navbar = () => {
             <Bell className="w-4 h-4" />
             {unreadCount > 0 && (
               <span className="absolute 0.5 0.5 -top-0.5 -right-0.5 min-w-3.5 h-3.5 px-1 rounded-full bg-rose-600 text-white text-[9px] font-bold font-mono flex items-center justify-center">
-                {unreadCount > 9 ? '9+' : unreadCount}
+                {unreadCount > 9 ? "9+" : unreadCount}
               </span>
             )}
           </button>
@@ -121,23 +144,40 @@ const Navbar = () => {
           {showNotif && (
             <div className="absolute right-0 top-full mt-1.5 w-80 saas-card overflow-hidden z-50 shadow-2xl">
               <div className="flex items-center justify-between px-3.5 py-2.5 border-b border-[#1E232E] bg-[#0E1015]">
-                <span className="text-xs font-semibold text-gray-200">Alerts & System Logs</span>
+                <span className="text-xs font-semibold text-gray-200">
+                  Alerts & System Logs
+                </span>
                 {unreadCount > 0 && (
-                  <span className="badge-danger font-mono text-[10px]">{unreadCount} unread</span>
+                  <span className="badge-danger font-mono text-[10px]">
+                    {unreadCount} unread
+                  </span>
                 )}
               </div>
               <div className="max-h-72 overflow-y-auto divide-y divide-[#181B23]">
                 {notifications.length === 0 ? (
-                  <div className="p-6 text-center text-gray-500 text-xs">No pending notifications</div>
+                  <div className="p-6 text-center text-gray-500 text-xs">
+                    No pending notifications
+                  </div>
                 ) : (
                   notifications.slice(0, 8).map((n, i) => (
-                    <div key={i} className="flex items-start gap-2.5 p-3 hover:bg-[#171A22] transition-colors">
-                      <div className="mt-0.5 flex-shrink-0">{getNotifIcon(n.type)}</div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-xs font-medium text-gray-200 leading-snug">{n.title}</p>
-                        <p className="text-[11px] text-gray-400 truncate mt-0.5">{n.message}</p>
+                    <div
+                      key={i}
+                      className="flex items-start gap-2.5 p-3 hover:bg-[#171A22] transition-colors"
+                    >
+                      <div className="mt-0.5 flex-shrink-0">
+                        {getNotifIcon(n.type)}
                       </div>
-                      {!n.isRead && <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1 flex-shrink-0" />}
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs font-medium text-gray-200 leading-snug">
+                          {n.title}
+                        </p>
+                        <p className="text-[11px] text-gray-400 truncate mt-0.5">
+                          {n.message}
+                        </p>
+                      </div>
+                      {!n.isRead && (
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1 flex-shrink-0" />
+                      )}
                     </div>
                   ))
                 )}
@@ -145,7 +185,6 @@ const Navbar = () => {
             </div>
           )}
         </div>
-
       </div>
 
       {/* Global Permissions Modal — accessible by all roles */}
@@ -160,4 +199,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

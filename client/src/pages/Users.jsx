@@ -1,27 +1,52 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getUsers } from '../app/slices/authSlice';
-import { authAPI } from '../services/api';
-import { Users as UsersIcon, Plus, Edit2, Shield, ShieldCheck, X, CheckCircle2 } from 'lucide-react';
-import PermissionsModal from '../components/common/PermissionsModal';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getUsers } from "../app/slices/authSlice";
+import { authAPI } from "../services/api";
+import {
+  Users as UsersIcon,
+  Plus,
+  Edit2,
+  Shield,
+  ShieldCheck,
+  X,
+  CheckCircle2,
+} from "lucide-react";
+import PermissionsModal from "../common/PermissionsModal";
 
 const UserModal = ({ user, onClose, onSubmit, loading }) => {
   const isEdit = !!user;
   const [form, setForm] = useState(
     user
-      ? { role: user.role, isActive: user.isActive, name: user.name, department: user.department }
-      : { name: '', email: '', password: '', role: 'staff', department: '', phone: '' }
+      ? {
+          role: user.role,
+          isActive: user.isActive,
+          name: user.name,
+          department: user.department,
+        }
+      : {
+          name: "",
+          email: "",
+          password: "",
+          role: "staff",
+          department: "",
+          phone: "",
+        },
   );
 
   return (
-    <div className="modal-overlay" onClick={(e) => e.target === e.currentTarget && onClose()}>
+    <div
+      className="modal-overlay"
+      onClick={(e) => e.target === e.currentTarget && onClose()}
+    >
       <div className="modal-content max-w-md">
         <div className="flex items-center justify-between px-5 py-3.5 border-b border-[#1E232E] bg-[#0E1015]">
           <div>
             <h2 className="text-xs font-semibold text-white tracking-tight">
-              {isEdit ? `Edit User: ${user?.name}` : 'Create New System User'}
+              {isEdit ? `Edit User: ${user?.name}` : "Create New System User"}
             </h2>
-            <p className="text-[11px] text-gray-400">RBAC credential and authorization provisioning</p>
+            <p className="text-[11px] text-gray-400">
+              RBAC credential and authorization provisioning
+            </p>
           </div>
           <button onClick={onClose} className="btn-icon">
             <X className="w-4 h-4" />
@@ -41,7 +66,7 @@ const UserModal = ({ user, onClose, onSubmit, loading }) => {
                 <label className="form-label">Full Name *</label>
                 <input
                   className="form-input"
-                  value={form.name || ''}
+                  value={form.name || ""}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
                   placeholder="Jonathan Drake"
                   required
@@ -52,7 +77,7 @@ const UserModal = ({ user, onClose, onSubmit, loading }) => {
                 <input
                   type="email"
                   className="form-input"
-                  value={form.email || ''}
+                  value={form.email || ""}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
                   placeholder="jdrake@retailflow.com"
                   required
@@ -63,8 +88,10 @@ const UserModal = ({ user, onClose, onSubmit, loading }) => {
                 <input
                   type="password"
                   className="form-input"
-                  value={form.password || ''}
-                  onChange={(e) => setForm({ ...form, password: e.target.value })}
+                  value={form.password || ""}
+                  onChange={(e) =>
+                    setForm({ ...form, password: e.target.value })
+                  }
                   placeholder="••••••••"
                   minLength={6}
                   required
@@ -78,7 +105,7 @@ const UserModal = ({ user, onClose, onSubmit, loading }) => {
               <label className="form-label">Full Name</label>
               <input
                 className="form-input"
-                value={form.name || ''}
+                value={form.name || ""}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
               />
             </div>
@@ -101,7 +128,7 @@ const UserModal = ({ user, onClose, onSubmit, loading }) => {
             <label className="form-label">Department</label>
             <input
               className="form-input"
-              value={form.department || ''}
+              value={form.department || ""}
               onChange={(e) => setForm({ ...form, department: e.target.value })}
               placeholder="e.g. Supply Chain & Logistics"
             />
@@ -115,21 +142,33 @@ const UserModal = ({ user, onClose, onSubmit, loading }) => {
                 onClick={() => setForm({ ...form, isActive: !form.isActive })}
                 className={`px-2.5 py-0.5 rounded text-xs font-medium ${
                   form.isActive
-                    ? 'bg-emerald-950 text-emerald-300 border border-emerald-800'
-                    : 'bg-rose-950 text-rose-300 border border-rose-800'
+                    ? "bg-emerald-950 text-emerald-300 border border-emerald-800"
+                    : "bg-rose-950 text-rose-300 border border-rose-800"
                 }`}
               >
-                {form.isActive ? 'Active' : 'Deactivated'}
+                {form.isActive ? "Active" : "Deactivated"}
               </button>
             </div>
           )}
 
           <div className="flex gap-2.5 pt-2 border-t border-[#1E232E]">
-            <button type="button" onClick={onClose} className="btn-secondary flex-1">
+            <button
+              type="button"
+              onClick={onClose}
+              className="btn-secondary flex-1"
+            >
               Cancel
             </button>
-            <button type="submit" disabled={loading} className="btn-primary flex-1">
-              {loading ? 'Saving...' : isEdit ? 'Save Changes' : 'Provision User'}
+            <button
+              type="submit"
+              disabled={loading}
+              className="btn-primary flex-1"
+            >
+              {loading
+                ? "Saving..."
+                : isEdit
+                  ? "Save Changes"
+                  : "Provision User"}
             </button>
           </div>
         </form>
@@ -174,13 +213,16 @@ const Users = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-1 border-b border-[#1E232E]">
         <div>
           <div className="flex items-center gap-2.5">
-            <h2 className="text-base font-semibold text-white tracking-tight">User Accounts & Permissions</h2>
+            <h2 className="text-base font-semibold text-white tracking-tight">
+              User Accounts & Permissions
+            </h2>
             <span className="text-[11px] font-medium px-2 py-0.5 rounded bg-[#171A22] text-gray-400 border border-[#232834]">
               {users.length} active accounts
             </span>
           </div>
           <p className="text-[11px] text-gray-400 mt-0.5">
-            Role-based permissions (Admin, Manager, Staff), access control, and user account status
+            Role-based permissions (Admin, Manager, Staff), access control, and
+            user account status
           </p>
         </div>
 
@@ -217,7 +259,9 @@ const Users = () => {
           <div
             key={u._id}
             className={`saas-card p-3.5 space-y-2.5 ${
-              u._id === currentUser?.id ? 'border-emerald-800 border-opacity-70' : ''
+              u._id === currentUser?.id
+                ? "border-emerald-800 border-opacity-70"
+                : ""
             }`}
           >
             <div className="flex items-start justify-between">
@@ -227,7 +271,9 @@ const Users = () => {
                 </div>
                 <div>
                   <div className="flex items-center gap-1.5">
-                    <h3 className="text-xs font-semibold text-white">{u.name}</h3>
+                    <h3 className="text-xs font-semibold text-white">
+                      {u.name}
+                    </h3>
                     {u._id === currentUser?.id && (
                       <span className="text-[10px] font-medium px-1.5 py-0.2 rounded bg-[#064E3B] bg-opacity-40 text-emerald-300 border border-emerald-800">
                         You
@@ -269,17 +315,17 @@ const Users = () => {
               <span className="text-[11px] font-medium capitalize px-2 py-0.5 rounded bg-[#11221A] text-emerald-300 border border-[#1A402E]">
                 {u.role}
               </span>
-              <span className={u.isActive ? 'badge-success' : 'badge-gray'}>
-                {u.isActive ? 'Active' : 'Deactivated'}
+              <span className={u.isActive ? "badge-success" : "badge-gray"}>
+                {u.isActive ? "Active" : "Deactivated"}
               </span>
             </div>
 
             <div className="pt-2 border-t border-[#1E232E] flex items-center justify-between text-[11px] text-gray-400">
-              <span>{u.department || 'General Ops'}</span>
+              <span>{u.department || "General Ops"}</span>
               <span>
                 {u.lastLogin
                   ? `Active ${new Date(u.lastLogin).toLocaleDateString()}`
-                  : 'Pending first login'}
+                  : "Pending first login"}
               </span>
             </div>
           </div>
