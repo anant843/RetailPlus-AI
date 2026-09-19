@@ -1,0 +1,106 @@
+
+# Dependencies
+node_modules/
+client/node_modules/
+server/node_modules/
+**/node_modules/
+
+# Environment Variables
+.env
+.env.*
+server/.env
+client/.env
+
+# Build Outputs
+dist/
+build/
+out/
+coverage/
+
+# Vite
+.vite/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Runtime Files
+*.pid
+*.seed
+*.pid.lock
+
+# Cache
+.cache/
+.parcel-cache/
+.eslintcache
+
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDEs
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+*.swo
+
+# MongoDB Memory Server
+.mongodb/
+mongodb-data/
+server/node_modules/.cache/
+**/.cache/
+
+# Temporary Files
+tmp/
+temp/
+*.tmp
+
+# Uploads (optional)
+uploads/
+public/uploads/
+
+# Testing
+coverage/
+.nyc_output/
+
+# Environment Config Backups
+.env.backup
+.env.local
+.env.development.local
+.env.production.local
+.env.test.local
+
+# Mac/Linux
+.AppleDouble
+.LSOverride
+
+# Windows
+ehthumbs.db
+
+# Generated Reports
+reports/
+exports/
+
+# React Build Artifacts
+client/dist/
+server/dist/
+
+# Package Manager
+.pnp
+.pnp.js
+
+# Lock files (optional - usually keep them)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml

@@ -1,0 +1,260 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Base Styles ──────────────────────────────────────────────────────────── */
+@layer base {
+  * {
+    @apply box-border;
+  }
+
+  html {
+    font-size: 15.5px;
+    @apply scroll-smooth;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  body {
+    background-color: #0B1020;
+    color: #F8FAFC;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.5;
+  }
+
+  /* Enterprise Subtle Scrollbars */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0B1020;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1E293B;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #334155;
+  }
+}
+
+/* ── Enterprise Component Layer (Muted Emerald Green Accent) ──────────────── */
+@layer components {
+  /* Solid Surface Cards (Stripe / Linear / Vercel style - Subtle borders, no heavy shadows) */
+  .saas-card {
+    background-color: #0F1629;
+    border: 1px solid rgba(30, 41, 59, 0.7);
+    border-radius: 8px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25);
+  }
+
+  .saas-card-subtle {
+    background-color: #0B1020;
+    border: 1px solid rgba(30, 41, 59, 0.5);
+    border-radius: 6px;
+  }
+
+  /* Legacy fallback support */
+  .glass-card {
+    background-color: #0F1629;
+    border: 1px solid rgba(30, 41, 59, 0.7);
+    border-radius: 8px;
+  }
+
+  .glass-card-hover {
+    background-color: #0F1629;
+    border: 1px solid rgba(30, 41, 59, 0.7);
+    border-radius: 8px;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+  }
+  .glass-card-hover:hover {
+    border-color: #334155;
+    background-color: #131C33;
+  }
+
+  /* Buttons - Muted Emerald Accent */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-medium text-xs rounded-md transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-1.5 px-3 py-1.5 bg-[#131C33] hover:bg-[#1A2542] active:bg-[#0F1629] text-gray-300 hover:text-white font-medium text-xs rounded-md transition-colors border border-[#1E293B] hover:border-[#334155] disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap;
+  }
+
+  .btn-danger {
+    @apply inline-flex items-center justify-center gap-1.5 px-3 py-1.5 bg-red-950 hover:bg-red-900 active:bg-red-950 text-red-300 hover:text-red-200 font-medium text-xs rounded-md transition-colors border border-red-800 border-opacity-60 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap;
+  }
+
+  .btn-success {
+    @apply inline-flex items-center justify-center gap-1.5 px-3 py-1.5 bg-emerald-950 hover:bg-emerald-900 text-emerald-300 font-medium text-xs rounded-md transition-colors border border-emerald-800 border-opacity-60 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap;
+  }
+
+  .btn-icon {
+    @apply p-1.5 rounded-md text-gray-400 hover:text-gray-200 hover:bg-[#131C33] border border-transparent hover:border-[#1E293B] transition-colors;
+  }
+
+  /* Form Inputs - Linear style dark inputs with subtle emerald focus */
+  .form-input {
+    @apply w-full px-3 py-2 bg-[#0B1020] border border-[#1E293B] rounded-md text-gray-100 text-xs placeholder-gray-500 transition-colors leading-normal;
+  }
+  .form-input:focus {
+    @apply outline-none border-emerald-500 ring-1 ring-emerald-500;
+  }
+
+  .form-select {
+    @apply form-input appearance-none cursor-pointer pr-8 bg-no-repeat;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239CA3AF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-position: right 0.65rem center;
+    background-size: 14px 14px;
+  }
+
+  .form-label {
+    @apply block text-xs font-medium text-gray-400 mb-1;
+  }
+
+  /* KPI Cards - Compact operational metrics */
+  .kpi-card {
+    @apply bg-[#0F1629] border border-[#1E293B] rounded-lg p-3 flex flex-col justify-between transition-colors;
+  }
+
+  /* Enterprise Status Badges - Muted pills with 1px border & 4px radius */
+  .badge-success {
+    @apply inline-flex items-center justify-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-[#064E3B] bg-opacity-40 text-emerald-400 border border-emerald-500 border-opacity-40 whitespace-nowrap;
+  }
+
+  .badge-warning {
+    @apply inline-flex items-center justify-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-[#78350F] bg-opacity-40 text-amber-400 border border-amber-500 border-opacity-40 whitespace-nowrap;
+  }
+
+  .badge-danger {
+    @apply inline-flex items-center justify-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-[#881337] bg-opacity-40 text-rose-400 border border-rose-500 border-opacity-40 whitespace-nowrap;
+  }
+
+  .badge-info {
+    @apply inline-flex items-center justify-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-[#1E3A8A] bg-opacity-40 text-blue-400 border border-blue-500 border-opacity-40 whitespace-nowrap;
+  }
+
+  .badge-purple,
+  .badge-emerald {
+    @apply inline-flex items-center justify-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-[#064E3B] bg-opacity-40 text-emerald-300 border border-emerald-600 border-opacity-40 whitespace-nowrap;
+  }
+
+  .badge-gray {
+    @apply inline-flex items-center justify-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-[#131C33] text-gray-400 border border-[#1E293B] whitespace-nowrap;
+  }
+
+  /* Dense Data Table - Clean enterprise headers and compact density */
+  .data-table {
+    @apply w-full text-xs text-left border-collapse table-auto;
+  }
+
+  .data-table thead {
+    @apply bg-[#0D1322] sticky top-0 z-10;
+  }
+
+  .data-table th {
+    @apply px-3 py-2 text-left text-[11px] font-medium text-gray-400 border-b border-[#1E293B] select-none whitespace-nowrap;
+  }
+
+  .data-table tbody tr {
+    @apply border-b border-[#162035] transition-colors;
+  }
+  .data-table tbody tr:hover {
+    @apply bg-[#131C33];
+  }
+
+  .data-table td {
+    @apply px-3 py-1.5 text-gray-200 align-middle;
+  }
+
+  /* Modal Overlay - Solid dark scrim, crisp centered modal */
+  .modal-overlay {
+    @apply fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center p-4;
+  }
+
+  .modal-content {
+    @apply bg-[#0F1629] border border-[#1E293B] rounded-xl w-full max-h-[90vh] overflow-y-auto shadow-2xl;
+  }
+
+  /* Sidebar Links - Linear Style with Subtle Accent Line */
+  .sidebar-link {
+    @apply relative flex items-center gap-2 px-2.5 py-1.5 rounded-md text-gray-400 hover:text-gray-100 hover:bg-[#131C33]/60 transition-colors text-[12px] font-medium whitespace-nowrap;
+  }
+
+  .sidebar-link.active {
+    @apply bg-emerald-500/[0.08] text-white font-medium border-l-2 border-emerald-400 rounded-l-none pl-2;
+  }
+
+  .sidebar-link.active svg {
+    @apply text-emerald-400;
+  }
+
+  /* Chat Bubbles */
+  .chat-bubble-user {
+    @apply ml-auto max-w-[80%] px-3.5 py-2.5 bg-emerald-600 text-white text-xs rounded-lg rounded-tr-none leading-relaxed;
+  }
+
+  .chat-bubble-ai {
+    @apply mr-auto max-w-[85%] px-3.5 py-2.5 bg-[#171A22] border border-[#232834] text-gray-200 text-xs rounded-lg rounded-tl-none leading-relaxed;
+  }
+
+  /* Progress Bar */
+  .progress-bar {
+    @apply h-1.5 bg-[#1F2430] rounded-full overflow-hidden;
+  }
+
+  .progress-fill {
+    @apply h-full rounded-full transition-all duration-300;
+  }
+}
+
+/* ── Utility Layer ────────────────────────────────────────────────────────── */
+@layer utilities {
+  .font-mono-numbers {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* ── Recharts Commercial Theme ────────────────────────────────────────────── */
+.recharts-cartesian-grid line {
+  stroke: #1B1F28 !important;
+}
+.recharts-text {
+  fill: #6B7280 !important;
+  font-size: 11px !important;
+  font-family: 'Inter', sans-serif !important;
+}
+.recharts-tooltip-wrapper .recharts-default-tooltip {
+  background-color: #13151B !important;
+  border: 1px solid #282F3E !important;
+  border-radius: 6px !important;
+  padding: 8px 12px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+}
+.recharts-tooltip-wrapper * {
+  color: #E5E7EB !important;
+  font-size: 11px !important;
+}
+.recharts-legend-item-text {
+  color: #9CA3AF !important;
+  font-size: 11px !important;
+}
+
+/* Typing Indicator */
+.typing-dot {
+  @apply w-1.5 h-1.5 rounded-full bg-emerald-400;
+  animation: typingDot 1.2s infinite ease-in-out;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingDot {
+  0%, 80%, 100% { transform: scale(1); opacity: 0.4; }
+  40% { transform: scale(1.2); opacity: 1; }
+}
